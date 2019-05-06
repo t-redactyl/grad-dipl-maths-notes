@@ -175,15 +175,46 @@ You can see that for both the supremum and infimum in intervals of real numbers,
 
 ## Chapter 11: limits of functions and continuity
 
-**Limit of a functions:** 
+**Limit of a functions:** Let $f: \mathbb{R} \rightarrow \mathbb{R}$ be a function. We say that $L$ is the limit of $f(x)$ as $x$ approaches $a$, denoted by $\lim_{x \to a} f(x) = L$ (or in other words, $f(x) \rightarrow L \textrm{ as } x \rightarrow a$), if for each $\epsilon > 0$, there exists some $\delta > 0$ such that:
+$$
+0 < |x - a| < \delta \Rightarrow |f(x) - L| < \epsilon
+$$
+Or demonstrated graphically:
 
-**Formal definition of limit of a function:**
+![Types of functions](/Users/jodieburchell/Documents/grad-dipl-maths-notes/mt2116-abstract-mathematics/limit_function.png)
 
-**Algebra of limits:**
+What this and the above definition are saying is that if someone gives us some arbitrarily small real number $\epsilon$, then there is some neighbourhood of $a$, $(a-\delta, a+\delta)$, such that any $x$ in this neighbourhood - other than $a$ itself - will have $f(x)$ in the $\epsilon$-neighbourhood ($L - \epsilon, L + \epsilon$) of $L$.
 
-**Function continuity:**
+We can slso define limits in a different way: Let $f: \mathbb{R} \Rightarrow \mathbb{R}$ be a function. We say that $L$ is the limit of $f(x)$ as $x$ approaches $\infty$, denoted by $lim_{x \to \infty} f(x) = L$, if for each $\epsilon > 0$, there exists $M > 0$ such that:
+$$
+x \geq M \Rightarrow |f(x) - L| < \epsilon
+$$
+In other words, $x$ will always be bigger than or equal to some arbitrary $M$ (as it moves to infinity), and the distance between $f(x)$ and $L$ will always be smaller than some arbitrary number $\epsilon$.
 
-**Continuous functions and convergent sequences:**
+**Algebra of limits:** We can derive new functions by applying an algebra on the set of functions. We apply these point wise, so that (for example) a new function $(f + g)$ is obtained for each value of $x$, $(f+g)(x) = f(x) + g(x)$. This also carries through to the limits, as can be seen in the folloing definitions.
+
+Let $f,g: \mathbb{R} \rightarrow \mathbb{R}$ be two functions and $c$ be any real number. Suppose that $\lim_{x \to a} f(x) = L$ and $\lim_{x \to a} g(x) = M$. Then:
+
+* $\lim_{x \to a} (cf)(x) = cL$
+* $\lim_{x \to a} (|f|)(x) = |L|$
+* $\lim_{x \to a} (f + g)(x) = L + M$ 
+* $\lim_{x \to a} (f - g)(x) = L - M$ 
+* $\lim_{x \to a} f(x)g(x) = LM$ 
+* $\lim_{x \to a} (f / g)(x) = L/M$ provided that $g(x) \neq 0$ for each $x$ in some neighbourhood of $a$.
+
+**Function continuity:** Some functions may have limits that are different depending on whether you approach from the left or the right. Let $f: \mathbb{R} \rightarrow \mathbb{R}$ be a function, and we say that $L$ is the limit of $f(x)$ as $x$ approaches $a$ from the left (or below), or $lim_{x \to a-} f(x) = L$ if for each $\epsilon > 0$ there exists $\delta > 0$ such that $a - \delta < x < a \Rightarrow |f(x) - L| < \epsilon$. A similar definition can be made for $x$ approaching $a$ from the right (or above), or $lim_{x \to a+} f(x) = L$.
+
+These limits are needed to define limits in functions that are not continuous. To define continuity of a function:
+
+* A function is continuous at point $a$ if $f(a)$ is defined and and is equal to $lim_{x \to a} f(x)$. (This simply means that the limit is defined).
+
+* A function is continuous if it is continuous at each point $a$.
+
+* A function is continuous on the interval $[a,b]$ if it is continuous at each point in $(a,b)$ and (i) $f(a) = lim_{x \to a+} f(x)$ and (ii) $f(b) = lim_{x \to a-} f(x)$ (the limit is the same when $x$ is approaching $a$ from the left and right)  
+
+**Continuity and algebra of limits:** Let $f,g: \mathbb{R} \rightarrow \mathbb{R}$ be functions which are continuous at $a \in \mathbb{R}$ and $c$ be any real number. Then $|f|, (cf), (f-g), (f+g), (f(x)g(x))$ are all continuous at $a$, and $(f/g)$ is continuous provided that $g(x) \neq 0$ for any $x$ in the neighbourhood of $a$. In addition, if $g$ is a function that is continuous at $a$, and $f$ is a function that is continuous at $g(a)$, then $(f \circ g)$ is continuous at $a$.
+
+**Continuous functions and convergent sequences:** A function 
 
 **Maximum and minimum value of closed bounded sequence:**
 
@@ -191,7 +222,7 @@ You can see that for both the supremum and infimum in intervals of real numbers,
 
 ## Chapter 12: groups
 
-**Binary operations:**
+**Binary operations: **A binary operation $\star$ on a set $G$ is a function defined on the set of ordered pairs $G \times G$. 
 
 **Closure property:**
 
