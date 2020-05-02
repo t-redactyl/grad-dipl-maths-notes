@@ -429,20 +429,3 @@ $$
   * However, 1099 is an odd number
   * This is a contradiction (the addition of two even numbers cannot give an odd number)
   * Therefore, it follows that the $m,n$ of the type needed for this statement to be true cannot exist, and the statement is true (proven)
-
-### 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -1,12 +1,12 @@
 ---
-title: What is a matrix, and what can you do with it?  
-date: 2019-07-07   
+title: What is a matrix?  
+date: 2019-07-15   
 comments: false  
 tags: Maths, Linear algebra  
 keywords:   
 ---
 
-Hello! I'm alive! After writing my last blog post not long after I touched down in Germany, I've had (unsurprisingly) an extremely busy 18 months which has (also unsurprisingly) allowed exactly zero time for blogging. In addition to all of the tasks associated with moving to a new job and country, I have been devoting a lot of time to try and learn German (which is an impossible language, don't even get me started). On top of all of that I had the opportunity to enrol in a mathematics diploma by distance learning late last year, and I decided to use this to fill in some of the gaps in maths knowledge I have coming from a behavioural sciences background. If you're also interested in getting a solid background in formal mathematics I can highly recommend the programme so far (you can find out more information about it [here](https://london.ac.uk/courses/mathematics)).
+Hello! I'm alive! After writing my last blog post not long after I touched down in Germany, I've had (unsurprisingly) an extremely busy 18 months which has (also unsurprisingly) allowed exactly zero time for blogging. In addition to all of the tasks associated with moving to a new job and country, I have been devoting a lot of time to try and learn German (which is an impossible language, don't even get me started). On top of all of that I had the opportunity to enrol in a mathematics diploma by distance learning late last year, and I decided to use this to fill in some of the gaps in maths knowledge that I have coming from a behavioural sciences background. If you're also interested in getting a solid background in formal mathematics I can highly recommend my programme so far (you can find out more information about it [here](https://london.ac.uk/courses/mathematics)).
 
 As I work my way through my latest unit, linear algebra, I'll be posting about things that I am learning. In addition to helping me fully understand the material, hopefully it will be a gentle introduction to these topics for those of you who also don't have a formal maths background. I'll also be including very accessible links throughout the posts when I use terms or refer to things that you might not be familiar with, in order to help you build up your knowledge bit-by-bit.
 
@@ -54,7 +54,7 @@ This operation can also be extended to allow us to subtract a matrix from anothe
 
 ### Multiplying a matrix by a scalar
 
-We can also create a new matrix by multiplying a matrix by a real number (called a scalar in this context). Taking our original matrix $A$ and a scalar (let's say $2$), we can create a new matrix $D$ by multiplying every element of $A$ by $2$, like so:
+We can also create a new matrix by multiplying a matrix by a [real number](https://www.mathsisfun.com/numbers/real-numbers.html) (called a scalar in this context). Taking our original matrix $A$ and a scalar (let's say $2$), we can create a new matrix $D$ by multiplying every element of $A$ by $2$, like so:
 $$
 D = 2A = \begin{bmatrix}(2 \times 1) & (2 \times 2)\\(2 \times 3) & (2 \times 4)\\(2 \times 5) & (2 \times 6)\end{bmatrix} = \begin{bmatrix}2 & 4\\6 & 8\\10 & 12\end{bmatrix}
 $$
@@ -126,11 +126,13 @@ FF^{-1} = \begin{bmatrix}(4 \times \frac{5}{2} + 3 \times -3) & (4\times-\frac{3
 = \begin{bmatrix}(10-9) & (-6 + 6)\\(15-15) & (-9 + 10)\end{bmatrix} 
 = \begin{bmatrix}1 & 0\\0 & 1\end{bmatrix}
 $$
+And we can see that this has worked perfectly, indicating that we did indeed have the correct inverse of $F$.
+
 You might have also noticed that the order of the multiplication was $F \times F^{-1}$. Multiplying in this order will give us the identity matrix, but multiplying in the opposite order may not. This is true with all matrix multiplications where it is possible to multiply in both directions - you may not get the same result if you flip the order of the multiplication.
 
 Unfortunately, finding the inverse of matrices that are bigger than $2 \times 2$ is less straightforward. There are a few methods to do it, but they are beyond the scope of this blog post. A couple of nice (and gentle) introductions to these can be found [here](https://www.mathsisfun.com/algebra/matrix-inverse-row-operations-gauss-jordan.html) and [here](https://www.mathsisfun.com/algebra/matrix-inverse-minors-cofactors-adjugate.html). 
 
-Are all matrices invertible? Actually, no! Firstly, only square matrices are invertible. In addition, if one row is a multiple of the other, then you cannot invert the matrix. Let's see why this is the case. Let's say we have a matrix $G$, where the second row is a multiple of the first row:
+You've probably guessed from what I said earlier that not all matrices are invertible. Firstly, only square matrices are invertible. In addition, if one row is a multiple of the other, then you cannot invert the matrix. Let's see why this is the case. Let's say we have a matrix $G$, where the second row is a multiple of the first row:
 $$
 G = \begin{bmatrix}1 & 2\\3 & 6\end{bmatrix}
 $$
@@ -172,6 +174,6 @@ You can see that the values in $f_{12}$ and $f_{21}$ have moved, but the values 
 $$
 H = H^T = \begin{bmatrix}1 & 4 & 5\\4 & 2 & 6\\5 & 6 & 3\end{bmatrix}
 $$
-This matrix might not look symmetrical at a first glance. However, one way to see that it is really symmetrical is to compare the first row and the first column. You can see that they are identical, which means that it doesn't matter whether these elements function as a row or a column: the result will be the same. Another way to see this a bit more explicitly is to compare those elements are diagonal to each other in the matrix, as we spoke about above. We can see that $h_{12} = h_{21} = 4$, $h_{13} = h_{31} = 5$ and $h_{23} = h_{32} = 6$.
+This matrix might not look symmetrical at a first glance. However, one way to see that it is really symmetrical is to compare the first row and the first column (and the second row and second column, and the third row and third column). You can see that they are identical, which means that it doesn't matter whether these elements function as a row or a column: the result will be the same. Another way to see this a bit more explicitly is to compare those elements are diagonal to each other in the matrix, as we spoke about above. We can see that $h_{12} = h_{21} = 4$, $h_{13} = h_{31} = 5$ and $h_{23} = h_{32} = 6$.
 
 And that is it for the basics of matrices! In the next post I'll be looking at a special case of matrices called vectors, and some of their useful mathematical properties.
