@@ -79,7 +79,7 @@ $$ y + 5z = 12 $$
 
 * We have one further unknown to eliminate, which is the $y$ in equation 3. Getting rid of this will allow us to have a solution for $z$, which means we can start back-substitution.
   * Our second pivot is the first non-zero element in equation 2, which is $1$
-  * As such, $\ell_{32} = \frac{1}{1} = 1
+  * As such, $\ell_{32} = \frac{1}{1} = 1 $
   * As this multiplier is 1, we can simply subtract equation 2 from equation 3:
 
 $$ 2x + 4y - 2z = 2$$
@@ -123,12 +123,97 @@ $$ E_{21} = \begin{bmatrix} 1 & 0 & 0 \\ -2 & 1 & 0 \\ 0 & 0 & 1 \end{bmatrix} $
 
   $$ E_{21}\vec a_{1} = 2\begin{bmatrix} 1 \\ -2 \\ 0 \end{bmatrix} + 4\begin{bmatrix} 0 \\ 1 \\ 0 \end{bmatrix} - 2\begin{bmatrix} 0 \\ 0 \\ 1 \end{bmatrix}   $$ 
 
-* This essential says:
+* This essentially says:
   * The first and third components of $Ea_{12}$ remain the same as in A
   * The second component is made up of $-2$ components of the first component as well as the second component. These add to give a final value of 0.
-* 
+* Permutation matrix:
+  * Is a "reshuffling" of the identity matrix which reorders rows when multiplied  
+  * E.g., $P = \begin{bmatrix} 1 & 0 & 0 \\ 0 & 0 & 1 \\ 0 & 1 & 1 \end{bmatrix} $ exchanges rows 2 and 3, so $P = \begin{bmatrix} 1 & 0 & 0 \\ 0 & 0 & 1 \\ 0 & 1 & 1 \end{bmatrix}\begin{bmatrix} 2 & 4 & 1 \\ 0 & 0 & 3 \\ 0 & 6 & 5 \end{bmatrix} = \begin{bmatrix} 2 & 4 & 1 \\ 0 & 6 & 5 \\ 0 & 0 & 3 \end{bmatrix} $
 
+* In order to incorporate the right-hand side (i.e., $b$) into the elimination matrix, we can create an **augmented matrix** $\begin{bmatrix} A & b \end{bmatrix}$, which is essentially a normal $n \times n+1$ matrix.
+  * All operations we do to the rows of $A$ we now do to the rows of $b$ 
 
+* Laws of matrix operations:
+  * Commutative law is **usually broken**: $AB \neq BA$
+  * Distributative law holds: 
+    * $A(B + C) = AB + AC$
+    * $(A + B)C = AC + BC$
+  * Associative law holds: $A(BC) = (AB)C$
+  * Powers of matrices: $A^p = AAA \ldots A$ ($p$ factors)
+    * $(A^p)(A^q) = A^{p+q}$
+    * $(A^p)^q = A^{pq}$
+
+#### Inverse matrices
+
+* A matrix is invertible if there exists a matrix $A^{-1}$ for which $A^{-1}A = I$ and $AA^{-1} = 1$
+* A square matrix may or may not have an inverse
+* A few notes about matrix inversion:
+  * The inverse exists if and only if (iff) elimination procedures produce _n_ pivots
+  * If a matrix is invertible, it has only one unique inverse
+  * If a matrix $A$ is invertible, there is only one solution to $Ax = b$
+  * If there is a non-zero vector such that $Ax = 0$, then $A$ cannot have an inverse as no matrix can bring $0$ back to $x$
+  * A matrix is invertible only if its determinant is not zero
+  * A diagonal matrix has an inverse only if no diagonal entries are zero, because:
+
+$$ A = \begin{bmatrix} d_1 & 0 & 0 \\ 0 & d_2 & 0 \\ 0 & 0 & d_3 \end{bmatrix}, A^{-1} = \begin{bmatrix} \frac{1}{d_1} & 0 & 0 \\ 0 & \frac{1}{d_2} & 0 \\ 0 & 0 & \frac{1}{d_3} \end{bmatrix} $$
+
+* The product of two invertible matrices is invertible:
+  * The inversion is done in the reverse order of the product: $(AB)^{-1} = B^{-1}A^{-1}$
+  * This is because:
+    * $(AB)(B^{-1}A^{-1}) = A(BB^{-1})A^{-1} = AIA^{-1} = AA^{-1} = I$
+* The inverse of an elimination matrix simply reverses the sign of the value being subtracted/added:
+
+$$ E = \begin{bmatrix} 1 & 0 & 0 \\ -5 & 1 & 0 \\ 0 & 0 & 1 \end{bmatrix}, E^{-1} = \begin{bmatrix} 1 & 0 & 0 \\ 5 & 1 & 0 \\ 0 & 0 & 1 \end{bmatrix} $$
+
+* If we have two elimination matrices, then multiplying them together gives us unwanted extra products:
+  * E.g., taking $E$ above, and multiplying it by $F$, a second elimination matrix (let's say that $E = E_{21}$ and $F = E_{32}$)
+
+$$ F = \begin{bmatrix} 1 & 0 & 0 \\ 0 & 1 & 0 \\ 0 & -4 & 1 \end{bmatrix}, FE = \begin{bmatrix} 1 & 0 & 0 \\ -5 & 1 & 0 \\ 20 & -4 & 1 \end{bmatrix} $$
+
+* However, if we take the multiplication of the _inverses_ of these elimination matrices, we end up with only the multipliers we need to do the elimination:
+
+$$F^{-1} = \begin{bmatrix} 1 & 0 & 0 \\ 0 & 1 & 0 \\ 0 & 4 & 1 \end{bmatrix}$$
+
+$$ E^{-1}F^{-1} = \begin{bmatrix} 1 & 0 & 0 \\ 5 & 1 & 0 \\ 0 & 4 & 1 \end{bmatrix} $$
+
+#### Gauss-Jordan elimination
+
+* Idea is to solve $AA^{-1} = I$ by finding each column of $A^{-1}$
+
+  * We do this by multiplying $\begin{bmatrix} A & I \end{bmatrix} $ by $A^{-1}$ to get $\begin{bmatrix} I & A^{-1} \end{bmatrix} $
+  * This is done in several steps, as below
+
+* Step 1: find $U$
+
+  * Add the identity matrix to your invertible matrix
+
+  $$ \begin{bmatrix} K & e_1 & e_2 & e_3 \end{bmatrix} =  \begin{bmatrix} 2 & -1 & 0 & 1 & 0 & 0 \\ -1 & 2 & -1 & 0 & 1 & 0 \\ 0 & -1 & 2 & 0 & 0 & 1  \end{bmatrix} $$
+
+  * Complete elimination row-by-row
+
+  $$ = \begin{bmatrix} 2 & -1 & 0 & 1 & 0 & 0 \\ 0 & \frac{3}{2} & -1 & \frac{1}{2} & 1 & 0 \\ 0 & -1 & 2 & 0 & 0 & 1  \end{bmatrix} $$
+
+  $$ = \begin{bmatrix} 2 & -1 & 0 & 1 & 0 & 0 \\ 0 & \frac{3}{2} & -1 & \frac{1}{2} & 1 & 0 \\ 0 & 0 & \frac{4}{3} & \frac{1}{3} & \frac{2}{3} & 1  \end{bmatrix} $$
+
+  
+
+* Step 2: continue elimination to the **reduced echelon form**
+
+  * Eliminate value above the third pivot: $\frac{3}{4}$ row 3 + row 2
+
+  $$ = \begin{bmatrix} 2 & -1 & 0 & 1 & 0 & 0 \\ 0 & \frac{3}{2} & 0 & \frac{3}{4} & \frac{3}{2} & \frac{3}{4} \\ 0 & 0 & \frac{4}{3} & \frac{1}{3} & \frac{2}{3} & 1  \end{bmatrix} $$
+
+  * Eliminate value above the second pivot: $\frac{2}{3}$ row 2 + row 1
+
+  $$ = \begin{bmatrix} 2 & 0 & 0 & \frac{3}{2} & 1 & \frac{1}{2} \\ 0 & \frac{3}{2} & 0 & \frac{3}{4} & \frac{3}{2} & \frac{3}{4} \\ 0 & 0 & \frac{4}{3} & \frac{1}{3} & \frac{2}{3} & 1  \end{bmatrix} $$
+
+  * Finally, divide each row by its pivot to get the identity matrix on the left
+
+  $$ = \begin{bmatrix} 2 & 0 & 0 & \frac{3}{2} & 1 & \frac{1}{2} \\ 0 & \frac{3}{2} & 0 & \frac{3}{4} & \frac{3}{2} & \frac{3}{4} \\ 0 & 0 & \frac{4}{3} & \frac{1}{3} & \frac{2}{3} & 1  \end{bmatrix} \begin{matrix} / 2 \\ /\frac{3}{2} \\ /\frac{4}{3} \end{matrix} $$
+
+  $$ = \begin{bmatrix} 1 & 0 & 0 & \frac{3}{4} & \frac{1}{2} & \frac{1}{4} \\ 0 & 1 & 0 & \frac{1}{2} & 1 & \frac{1}{2} \\ 0 & 0 & 1 & \frac{1}{4} & \frac{1}{2} & \frac{3}{4} \end{bmatrix} = \begin{bmatrix} I & x_1 & x_2 & x_3 \end{bmatrix} = \begin{bmatrix} I & K^{-1} \end{bmatrix} $$
+
+* The product of the pivots (in this case $2(\frac{3}{2})(\frac{4}{3}))$ is the determinant of the matrix
 
 
 
