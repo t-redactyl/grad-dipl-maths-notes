@@ -214,8 +214,83 @@ $$ E^{-1}F^{-1} = \begin{bmatrix} 1 & 0 & 0 \\ 5 & 1 & 0 \\ 0 & 4 & 1 \end{bmatr
   $$ = \begin{bmatrix} 1 & 0 & 0 & \frac{3}{4} & \frac{1}{2} & \frac{1}{4} \\ 0 & 1 & 0 & \frac{1}{2} & 1 & \frac{1}{2} \\ 0 & 0 & 1 & \frac{1}{4} & \frac{1}{2} & \frac{3}{4} \end{bmatrix} = \begin{bmatrix} I & x_1 & x_2 & x_3 \end{bmatrix} = \begin{bmatrix} I & K^{-1} \end{bmatrix} $$
 
 * The product of the pivots (in this case $2(\frac{3}{2})(\frac{4}{3}))$ is the determinant of the matrix
+* Some matrices can be determined to be invertible simply by looking at them:
+  * **Diagonally dominant matrices**: in these matrices, every value $a_{ii}$ on the diagonal is larger than the total sum along the rest of the row $i$
 
+#### Elimination as factorisation into A = LU
 
+* Elimination on $A$ gives us $EA = U$
+* To recover $A$, we multiply $U$ by $E^{-1}$, which in this context is called $L$
 
+Forward from $A$ to $U$: $EA = \begin{bmatrix} 1 & 0 \\ -3 & 1 \end{bmatrix} \begin{bmatrix} 2 & 1 \\ 6 & 8 \end{bmatrix} = \begin{bmatrix} 2 & 1 \\ 0 & 5 \end{bmatrix} = U $
 
+Back from $U$ to $A$: $E^{-1}U = \begin{bmatrix} 1 & 0 \\ 3 & 1 \end{bmatrix} \begin{bmatrix} 2 & 1 \\ 0 & 5 \end{bmatrix} = \begin{bmatrix} 2 & 1 \\ 6 & 8 \end{bmatrix} $
+
+* To summarise:
+
+$(E_{32}E_{31}E_{21})A = U$ becomes $A = (E_{21}^{-1}E_{31}^{-1}E_{32}^{-1})U$ which is $A = LU$
+
+* Why does $A$ equal $LU$?
+  * When computing row 3 of $U$, we subtract multiples of earlier rows of $U$, not the original rows of $A$
+    * Row 3 of $U$ = (Row 3 of $A$) - $\ell_{31}$(Row 1 of $U$) - $\ell_{32}$(Row 2 of $U$) 
+  * We can rewrite this to see that the row $\begin{bmatrix} \ell_{31} & \ell_{32} & 1 \end{bmatrix}$ is multiplying $U$
+    * Row 3 of $U$ = (Row 3 of $A$) - $\ell_{31}$(Row 1 of $U$) - $\ell_{32}$(Row 2 of $U$) (+ $\ell_{31}$(Row 1 of $U$) and +  $\ell_{32}$(Row 2 of $U$) to both sides)
+    * 1(Row 3 of $U$) + $\ell_{31}$(Row 1 of $U$) + $\ell_{32}$(Row 2 of $U$) = Row 3 of $A$
+  * This is exactly Row 3 of $A = LU$, as the row of of $L$ holds $\begin{bmatrix} \ell_{31} & \ell_{32} & 1 \end{bmatrix}$ 
+
+* A further, symmetric factorisation can be achieved by factoring out one further matrix, $D$
+
+  * This is because $U$ has pivots on the diagonal, but $L$ has 1's, and we'd like both to have 1's on the diagonal
+  * If we divide $U$ by a matrix by a diagonal matrix with the pivots on the diagonal ($D$), we can create a new version of $U$ with 1's on the diagonal
+
+  $$LU = \begin{bmatrix} 1 & 0 \\ 3 & 1 \end{bmatrix} \begin{bmatrix} 2 & 8 \\ 0 & 5 \end{bmatrix} = \begin{bmatrix} 1 & 0 \\ 3 & 1 \end{bmatrix} \begin{bmatrix} 2 & 0 \\ 0 & 5 \end{bmatrix} \begin{bmatrix} 1 & 4 \\ 0 & 1 \end{bmatrix} = LDU $$
+
+* We can use our new system $LU$ to solve for $x$ in the following way:
+
+$Ax = b$:
+
+​	$ u + 2v = 5, 4u + 9v = 21$
+
+becomes $Ux = c$
+
+​	$u + 2v = 5, v = 1$ (where $c$ is the right hand side of the equation, $\begin{bmatrix} 5 \\ 1 \end{bmatrix}$)
+
+We can solve for $b$ using $Lc = b$:
+
+​	$\begin{bmatrix} 1 & 0 \\ 4 & 1 \end{bmatrix} \begin{bmatrix} 5 \\ 1 \end{bmatrix} = \begin{bmatrix} 5 \\ 21 \end{bmatrix} $
+
+And we can solve for $x$ using $Ux = c$:
+
+​	$\begin{bmatrix} 1 & 2 \\ 0 & 1 \end{bmatrix} \begin{bmatrix} x \end{bmatrix} = \begin{bmatrix} 5 \\ 1 \end{bmatrix} $ gives $x$ = $\begin{bmatrix} 3 \\ 1 \end{bmatrix} $
+
+#### Matrix transposition and inner products
+
+* Multiplication between two vectors can be made more explicit than $\vec x \cdot \vec y$ 
+  * Inner product: $\vec x^T\vec y$ $(1 \times n)(n \times 1)$
+  * Outer product/rank one product: $\vec x\vec y^T$ $(n \times 1)(1 \times n)$
+
+* $A^T$ is the matrix that makes the inner products equal for every $x$ and $y$:
+  * $(Ax)^Ty = x^T(A^Ty)$
+
+#### Symmetric matrices and matrix tranposes
+
+* A symmetric matrix is its own transpose
+  * $S^T = S$, $s_{ji} = s_{ij}$
+* The inverse of a symmetric matrix is also symmetric
+* Any matrix multiplied by its transpose is a square symmetric matrix:
+  * The transpose of $A^TA$ is $A^T(A^T)^T$ (reversed because of multiplication) which simplifies to $A^TA$
+
+* Both $A^TA$ and $AA^T$ are symmetric matrices
+  * $A^TA$ is _n_ by _n_ and $AA^T$ is _m_ by _m_
+  * Both have positive diagonals
+  * As per the usual violation of product commutativity for matrices, $A^TA \neq AA^T$ (probably)
+* For symmetric matrices, $LDU$ is also symmetrical
+
+$\begin{bmatrix} 1 & 2 \\ 2 & 7 \end{bmatrix} = \begin{bmatrix} 1 & 0 \\ 2 & 1 \end{bmatrix} \begin{bmatrix} 1 & 0 \\ 0 & 3 \end{bmatrix} \begin{bmatrix} 1 & 2 \\ 0 & 1 \end{bmatrix} $ where $LDU$ changes to $LDL^T$
+
+#### Permutation matrices
+
+* There are $n!$ permutation matrices of order $n$
+* $P^{-1}$ is always the same as $P^T$
+* When we need to perform row exchanges in order to complete elimination, $A = LU$ becomes $PA = LU$, where the row exchanges are done in advance by multiplying $PA$ 
 
