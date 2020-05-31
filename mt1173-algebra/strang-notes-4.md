@@ -187,3 +187,68 @@ $A^T(b - A\hat x) = \begin{bmatrix} a^T_1 \\ \vdots \\ a^T_n \end{bmatrix} \begi
   * If $A$ is not invertible, but all of its columns are, then $A^TA$ is invertible and symmetric
     * $A$ will always have independent columns if it is the basis for $C(A)$
 
+#### Least squares approximations
+
+![complete-solution](least_squares_1.png)
+
+* Let's say we have three measurements for one variable, $t$: (0,6), (1,0) and (2,0)
+* No straight line will go through these three points, so we will need to find the _best line_ that gets closest to these three lines simultaneously
+* In order to do so, we must solve the three equations for $C$ (the constant, or intercept) and $D$ (the coefficient of $t$):
+  * The first point $t = 0$ is on the line $C + Dt = b$ if $C + D \cdotp 0 = 6$
+  * The second point $t = 1$ is on the line $C + Dt = b$ if $C + D \cdotp 1 = 0$
+  * The first point $t = 2$ is on the line $C + Dt = b$ if $C + D \cdotp 2 = 0$
+* We end up with a system with no solution: 
+  * There is no $x$ that will find a solution for $b$ in the column space of $A$
+  * In other words, $b$ is not in the column space of $A$
+* Specifically, we are trying to find the solution for the following system:
+
+$A = \begin{bmatrix} 1 & 0 \\ 1 & 1 \\ 1 & 2 \end{bmatrix} x = \begin{bmatrix} C \\ D \end{bmatrix} b = \begin{bmatrix} 6 \\ 0 \\ 0 \end{bmatrix}$
+
+* But because $(6, 0, 0)$ is not a combination of the columns of $A$, there is no $(C, D)$ that will satisfy this equation
+* In the previous section, we worked out the $(C, D)$ that would find the closest vector $p$ in $C(A)$ was $\hat x = (5, -3)$, so the vector $p$ is $(5, 2, -1)$ (which represents the $\hat y$ predictions in linear regression)
+  * This means that the line of best fit is $5 - 3t$
+
+#### Minimising the error
+
+* The best $\hat x$ can be found by minimising the error, or by making $e = b - Ax$ as small as possible
+* By geometry:
+  * Every $Ax$ lies in the plane of the columns $(1, 1, 1)$ and $(0, 1, 2)$
+  * In this plane, we look for the closest point to $b$, which is the projection $p$. 
+  * This means that the best choice for $A\hat x$ is $p$, and that the smallest error is $e = b - p$, as it is perpendicular to the columns
+  * Because $p$ is in the column space of $A$, then the points $(p_1, p_2, p_3)$ lie on a line, which is the line of best fit
+  * In fitting a straight line, $\hat x$ is the best choice for $(C, D)$
+* By algebra:
+  * Any vector $b$ that is not in the column space of $A$ can be split into two components:
+    * $p$, the part in the column space of $A$
+    * $e$, the perpendicular part in the nullspace of $A^T$
+  * We cannot solve the equation $Ax = b$
+  * We _can_ solve the equation $A\hat x = p$, which we do solve by removing $e$ and solving $A^TA\hat x = A^Tb$
+  * In this case, $\hat x = (A^TA)^-1A^T = b$
+* Because $e$ is perpendicular to $p$, the solution to $A\hat x = p$ leaves the least possible error (as a perpendicular path between two vectors is the shortest one)
+  * Squared length for any $x = ||Ax - b||^2 = ||Ax - p||^2 + ||e||^2$ 
+  * This is Pythagora's theorem for any right triangle: $c^2 = a^2 + b^2$
+  * $Ax - p$ is perpendicular to $e$
+  * We can reduce $Ax - p$ to zero by selecting $\hat x$, as then $p$ is in the column space of $Ax$
+  * The smallest possible error means the squared length of $Ax - b$ is minimised:
+    * The least squares solution $\hat x$ makes $E = ||Ax - b||^2$ as small as possible
+* If we look at the figure at the top of this section, we can see that, geometrically, this represents each of the vertical distances between the points of $b$ and the line of best fit given by $A\hat x$
+  * The least squares minimises $E = e_1^2 + e_2^2 + e_3^2$
+* The errors in this case are $(1, -2, 1)$
+  * These add to zero because they are orthogonal to each of the columns in $A$. Taking the first column $(1, 1, 1)$, the dot product gives us $1 - 2 + 1 = 0$
+
+#### The big picture for least squares
+
+* In this case, because we have independent columns in $A$, we do not have anything in the nullspace except for the zero vector
+* We split $b$, a vector that exists _outside_ of our column space, into $p$, a vector in our column space and $e$, a vector in our left nullspace, through $b = p + e$
+* We get the best vector $\hat x$ from the row space using $A^TA\hat x = A^Tb$
+* The error has $A^Te = 0$
+
+#### Fitting other matrices
+
+* See the chapter for notes on fitting a straight line with $m > 3$
+* See also for notes on fitting a parabola (or other quadratic)
+
+
+
+
+
