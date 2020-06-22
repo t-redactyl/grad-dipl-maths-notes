@@ -1,0 +1,147 @@
+# Introduction to Linear Algebra
+
+## Gilbert Strang
+
+### Chapter 6: Eigenvalues and Eigenvectors
+
+* Almost all vectors change direction when they are multiplied by $A$
+* However, all  _square_ matrices have special vectors that return a scalar multiple of themselves when multiplied by $A$
+  * $Ax$ is on the same line as $x$
+  * $Ax$ is a stretched, shrunk, flipped version of $x$, or in the case of the scalar multiple being $1$, $Ax = x$
+* The basic equation is: $Ax = \lambda x$, where $\lambda$ is a scalar called the eigenvalue
+* If $\lambda = 0$, then $Ax = 0x$ means that this eigenvector $x$ is in the nullspace
+* Square matrices usually have $n$ eigenvalues and $n$ eigenvectors.
+  * The eigenvalues and eigenvectors are matched, to solve $Ax = \lambda x$
+  * A $2 \times 2$ matrix would have 2 eigenvalues and 2 eigenvectors
+* For example, the matrix $\begin{bmatrix} .8 & .3 \\ .2 & .7 \end{bmatrix}$ has the eigenvectors $x_1 = \begin{bmatrix} .6 \\ .4 \end{bmatrix}$ and $x_2 = \begin{bmatrix} 1 \\ -1 \end{bmatrix}$, and the eigenvalues $\lambda_1 = 1$ and $\lambda_2 = \frac{1}{2}$
+  * $Ax_1 =  \begin{bmatrix} .8 & .3 \\ .2 & .7 \end{bmatrix}\begin{bmatrix} .6 \\ .4 \end{bmatrix} = \begin{bmatrix} .6 \\ .4 \end{bmatrix} = x_1$
+  * $Ax_2 =  \begin{bmatrix} .8 & .3 \\ .2 & .7 \end{bmatrix}\begin{bmatrix} 1 \\ -1 \end{bmatrix} = \begin{bmatrix} .5 \\ -.5 \end{bmatrix} = \frac{1}{2}x_2$
+* All other vectors are combinations of the eigenvectors, weighted by some constant:
+  * $\begin{bmatrix} .8 \\ .2 \end{bmatrix} = x_1 + (.2)x_2 = \begin{bmatrix} .6 \\ .4 \end{bmatrix} + \begin{bmatrix} .2 \\ -.2 \end{bmatrix}$
+* If we multiply this vector by $A$, we multiply each component eigenvector separately, weighted by its eigenvalue:
+  * $A \begin{bmatrix} .8 \\ .2 \end{bmatrix} = x_1 + \frac{1}{2}(.2)x_2 = \begin{bmatrix} .6 \\ .4 \end{bmatrix} + \begin{bmatrix} .1 \\ -.1 \end{bmatrix} = \begin{bmatrix} .7 \\ .3 \end{bmatrix}$
+
+#### The equation for the eigenvalues
+
+* Starting with the equation $Ax = \lambda x$, we move $\lambda x$ to the left side:
+
+$$
+\begin{aligned}
+Ax &= \lambda x \\
+Ax - \lambda x &= 0 \\
+Ax - \lambda Ix &= 0 \\
+(A - \lambda I)x &= 0
+\end{aligned}
+$$
+
+* We know that for any matrix $A$, if $Ax = 0$ has a non-zero solution, then this matrix $A$ is not invertible/singular
+
+  * Similarly, for the matrix $A - \lambda I$, if $(A - \lambda I)x = 0$ has a non-zero solution, then $A - \lambda I$ is singular
+
+* If $A - \lambda I$ is singular, then $\det (A - \lambda I)$ must be zero:
+
+  *  $\det (A - \lambda I) = 0$
+
+* We have therefore removed $x$ from the equation (the "characteristic polynomial"), meaning we can now solve for $\lambda$
+
+  * For an $n \times n$ matrix $A$, we end up with an equation of degree $n$, meaning that $A$ will have $n$ $\lambda$'s (eigenvalues), which leads to $n$ $x$'s (eigenvectors)
+
+* Once we have the eigenvalues, we can backsubstitute them into $(A - \lambda I)x = 0$ to get the eigenvectors.
+
+* For example, take the matrix $A = \begin{bmatrix} 1 & 2 \\ 2 & 4 \end{bmatrix}$:
+
+  * When $A$ is already singular, as above, $\lambda = 0$ is one of the eigenvalues (as the determinant is equal to the product of the eigenvalues)
+  * To solve, we first find $\det (A - \lambda I)$:
+
+  $$
+  \begin{aligned}
+  A - \lambda I &= \begin{bmatrix} 1 & 2 \\ 2 & 4 \end{bmatrix} - \begin{bmatrix} \lambda & 0 \\ 0 & \lambda \end{bmatrix} \\
+  &= \begin{bmatrix} 1 - \lambda & 2 \\ 2 & 4 - \lambda \end{bmatrix} \\ \\
+  
+  \end{aligned}
+  $$
+
+  $$
+  \begin{aligned}
+  \det(A - \lambda I) &= \begin{vmatrix} 1 - \lambda & 2 \\ 2 & 4 - \lambda \end{vmatrix} \\
+  &= (1 - \lambda)(4 - \lambda) - (2)(2) \\
+  &= \lambda^2 - 5 \lambda
+  \end{aligned}
+  $$
+
+  * Set this determinant to zero and solve for the two $\lambda$'s: $\lambda^2 - 5 \lambda = 0$
+
+    * To get the solutions, we factor the equation into: $\lambda (\lambda - 5) = 0$
+
+    $$
+    \begin{aligned}
+    \lambda^2 - 5 \lambda &= 0 \\
+    \lambda (\lambda - 5) &= 0 \\ \\
+    
+    \end{aligned} \\
+    
+    \lambda = 0,\quad \lambda - 5 = 0 \\
+    \lambda_1 = 0,\quad \lambda_2 = 5
+    $$
+
+  * We can now find the eigenvectors by backsubstituting these values into $(A - \lambda I)x = 0$:
+
+  $$
+  \begin{aligned}
+  (A - 0I)x &= \begin{bmatrix} 1 & 2 \\ 2 & 4 \end{bmatrix}\begin{bmatrix} y \\ z \end{bmatrix} = \begin{bmatrix} 0 \\ 0 \end{bmatrix} \\
+  &= \begin{bmatrix} 1 & 2 \\ 0 & 0 \end{bmatrix}\begin{bmatrix} y \\ z \end{bmatrix} = \begin{bmatrix} 0 \\ 0 \end{bmatrix} (\textrm{through elimination}) \\
+  &= \begin{bmatrix} 1 & 2 \\ 0 & 0 \end{bmatrix}\begin{bmatrix} 2 \\ -1 \end{bmatrix} = \begin{bmatrix} 0 \\ 0 \end{bmatrix} (\textrm{through backsubstition, see below}) \\ \\
+  
+  x &= \begin{bmatrix} 2 \\ -1 \end{bmatrix} (\textrm{eigenvector 1})
+  \end{aligned} \\
+  $$
+
+  $$
+  \begin{aligned}
+  1y + 2z &= 0 \\
+  2(1y) -1(2z) &= 0 \\
+  2y - 2z &= 0
+  \end{aligned}
+  $$
+
+  $$
+  \begin{aligned}
+  (A - 5I)x &= \begin{bmatrix} -4 & 2 \\ 2 & -1 \end{bmatrix}\begin{bmatrix} y \\ z \end{bmatrix} = \begin{bmatrix} 0 \\ 0 \end{bmatrix} \\
+  &= \begin{bmatrix} -4 & 2 \\ 0 & 0 \end{bmatrix}\begin{bmatrix} y \\ z \end{bmatrix} = \begin{bmatrix} 0 \\ 0 \end{bmatrix} (\textrm{through elimination}) \\
+  &= \begin{bmatrix} -4 & 2 \\ 0 & 0 \end{bmatrix}\begin{bmatrix} 1 \\ 2 \end{bmatrix} = \begin{bmatrix} 0 \\ 0 \end{bmatrix} (\textrm{through backsubstition}) \\ \\
+  
+  x &= \begin{bmatrix} 1 \\ 2 \end{bmatrix} (\textrm{eigenvector 2})
+  \end{aligned} \\
+  $$
+
+  * The eigenvectors $x_1 = \begin{bmatrix} 2 \\ -1 \end{bmatrix}$ and $x_2 = \begin{bmatrix} 1 \\ 2 \end{bmatrix}$ are in the nullspaces of the matrices $A - 0I$ (or $A$ in this case) and $A - 5I$
+
+* The eigenvectors represent a line of possible vectors, with the two eigenvectors of the matrix $A$ representing the basis for the eigenspace of that matrix
+
+  * Some matrices have repeated eigenvalues, and therefore do not have the full set of $n$ eigenvectors
+
+#### Determinant and trace
+
+* Exchanging rows or adding a row of $A$ to another row (i.e., elimination) usually changes the eigenvalues
+  * The pivots of $U$ are **not** the eigenvalues of $A$
+* The sum of the eigenvalues is equal to the sum of the values in the diagonals of the matrix:
+  * $\lambda_1 + \lambda_2 + \ldots + \lambda_n = a_{11} + a_{22} + \ldots + a_{nn}$
+  * This is called the **trace** of the matrix $A$
+* The product of the eigenvalues is equal to the determinant of the matrix $A$:
+  * $\det A = a_{11}a_{22}\ldots a_{nn}$
+* The eigenvalues of a triangular matrix lie along its diagonal
+
+#### Imaginary eigenvalues
+
+* The eigenvalues may not be real numbers, as in the case of a rotation matrix:
+  * No real vector $x$ can lie on the same line as itself when it has been rotated 90° in $\mathbb{R}^n$
+  * Therefore, it is only possible to find eigenvalues and eigenvectors by using complex numbers
+
+#### Eigenvalues of $AB$ and $A + B$
+
+* If we have matrices $A$ and $B$ with eigenvalues $\lambda$ and $\beta$, you might assume that if you multiply $A$ and $B$, an eigenvalue of $AB = \lambda \beta$:
+  * $ABx = A \beta x = \beta Ax = \beta \lambda x$
+* However, this assumes that both $A$ and $B$ have the same eigenvector $x$, which is generally not the case
+* The same applies with the matrix $A + B$, where an eigenvalue of this matrix will generally **not** $\lambda + \beta$
+* Only when all $n$ eigenvectors are shared between the two matrices $A$ and $B$, will $ABx = \lambda \beta x$ and $BAx = \lambda \beta x$
+
