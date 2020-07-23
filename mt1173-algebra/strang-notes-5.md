@@ -160,15 +160,104 @@ $$
   $$
   \det A = \begin{vmatrix} a & b \\ c & d \end{vmatrix}, \quad \det A^T = \begin{vmatrix} a & c \\ b & d \end{vmatrix}
   $$
-   
+  
 
   * As can be seen in the $2 \times 2$ case, the determinant is unchanged
   * This is because in square matrices, transposing the matrix does not move the pivots
   * The implication of this is that all properties that apply to the rows of a matrix can also apply to the columns of that transposed matrix
 
+### Permutations and cofactors
 
+#### The pivot formula
 
+* The first way to find the determinant was covered in **property 7**, where the determinant of a triangular matrix  can be found by multiplying the diagonal entries
+* Therefore, we can find the determinant of any matrix $A$ (that is not already triangular) by elimination from $A$ to $U$, and then by multiplying the pivots:
 
+$ (\det P)(\det A) = (\det L)(\det U)$ gives $\det A = \pm (d_1d_2 \ldots d_n)$
 
+*  This means that each pivot is a ratio of determinants (because the determinant of each subset of the matrix is the product of the diagonals in that part of the matrix):
+  * The $k$th pivot is $d_k = \frac{d_1d_2 \ldots d_k}{d_1d_2 \ldots d_{k-1}} = \frac{\det A_k}{\det A{k-1}}$
 
+#### The big formula
 
+* The "big" formula is a way of combining all of the values of the original matrix to get the determinant:
+
+  * For a $2 \times 2$ matrix, this is the classic $ad - bc$ formula
+
+* The formula takes a single value from each row and each column and multiplies them, and then adds each permutation of these
+
+* There are $n!$ ways to combine the unique column/row values, because: 
+
+  * We have $n$ different values in column 1. We select one. This covers column 1, but also removes the row we selected from being picked in future selections.
+  * For column 2, we therefore have $n-1$ options, as one row has been used already
+  * For column 3, we have $n-2$ options, all the way down to column $n$, where we only have one option left.
+  * Therefore, the number of possible combinations is $(n)(n-1)(n-2) \ldots 1 = n!$
+
+* Due to row exchanges, half of these combinations will be positive and half will be negative
+
+* We can use linearity to derive these combinations. Using the $2 \times 2$ matrix:
+
+  * Each row can be broken down into two simpler rows: 
+
+  $$ \begin{bmatrix} a & b \end{bmatrix} =  \begin{bmatrix} a & 0 \end{bmatrix} +  \begin{bmatrix} 0 & b \end{bmatrix} $$
+
+  $$ \begin{bmatrix} c & d \end{bmatrix} =  \begin{bmatrix} c & 0 \end{bmatrix} +  \begin{bmatrix} 0 & d \end{bmatrix} $$
+
+  * Now we can apply linearity, first in row 1 (fixing row 2), and then in row 2 (fixing row 1):
+
+  $$
+  \begin{aligned}
+  \begin{vmatrix} a & b \\ c & d \end{vmatrix} &= \begin{vmatrix} a & 0 \\ c & d \end{vmatrix} + \begin{vmatrix} 0 & b \\ c & d \end{vmatrix} \\
+  &= \begin{vmatrix} a & 0 \\ c & 0 \end{vmatrix} + \begin{vmatrix} a & 0 \\ 0 & d \end{vmatrix} + \begin{vmatrix} 0 & b \\ c & 0 \end{vmatrix} + \begin{vmatrix} 0 & b \\ 0 & d \end{vmatrix}
+  \end{aligned}
+  $$
+
+  
+
+  * As can be seen, the first and fourth determinants have zero columns. By **property 6** and **property 10**, the determinants of these matrices are $0$, meaning we are left with $2! = 2$ determinants to compute:
+
+  $$
+  \begin{vmatrix} a & 0 \\ 0 & d \end{vmatrix} + \begin{vmatrix} 0 & b \\ c & 0 \end{vmatrix} = ad\begin{vmatrix} 1 & 0 \\ 0 & 1 \end{vmatrix} + bc\begin{vmatrix} 0 & 1 \\ 1 & 0 \end{vmatrix} = ad - bc
+  $$
+
+* This can be extended to all $n \times n$ cases, as demonstrated in the book
+
+* The overall formula to sum this up (the Big Formula) is:
+
+$$
+\begin{aligned}
+\det A &= \textrm{sum over all } n! \textrm{ column permutations } P = (\alpha, \beta, \ldots, \omega) \\
+&= \sum(\det P)a_{1\alpha}a_{2\beta}\ldots a_{n\omega}
+\end{aligned}
+$$
+
+#### Cofactors
+
+* When we calculate the big formula, we end up with a bunch of products. 
+* These products can be grouped by their inclusion of one of the entries in the first row, and then have this value factored out:
+
+$$
+\det A = a_{11}(a_{22}a_{33} - a_{23}a_{32}) + a_{12}(a_{23}a_{31} - a_{21}a_{33}) + a_{13}(a_{21}a_{32} - a_{22}a_{31})
+$$
+
+* The quantities in parentheses are called **cofactors**, and they represent (in this case) $2 \times 2$ determinants from rows 2 and 3:
+  * The first row contributes the factors $a_{11}, a_{12}, a_{13}$, the lower rows contribute the cofactors $C_{11}, C_{12}, C_{13}$
+  * The big formula can then be rewritten as $a_{11}C_{11} + a_{12}C_{12} + a_{13}C_{13}$
+* To demonstrate more explicitly:
+
+$$
+\begin{vmatrix} a_{11} & a_{12} & a_{13} \\ a_{21} & a_{22} & a_{23} \\ a_{31} & a_{32} & a_{33} \end{vmatrix} = \begin{vmatrix} a_{11} & & \\ & a_{22} & a_{23} \\ & a_{32} & a_{33} \end{vmatrix} =
+\begin{vmatrix} & a_{12} & \\ a_{21} & & a_{23} \\ a_{31} & & a_{33} \end{vmatrix} =
+\begin{vmatrix} & & a_{13} \\ a_{21} & a_{22} & \\ a_{31} & a_{32} & \end{vmatrix}
+$$
+
+* The rule for determining the cofactor is working out which rows and columns are used up by the factor. Whatever is left in the remaining rows is the cofactor
+* The signs of the cofactors can also be determined by the position of the factor in the first row, with the pattern plus, minus, plus ...
+  * The formula for this, for any factor column $j$ and sub matrix (cofactor matrix) $M$ is $C_{1j} = (-1)^{1 + j} \det M_{1j}$
+
+* We could also determine cofactors using other rows - using row 1 is just a convenience
+* We can also determine cofactors recursively:
+  * The smallest cofactor is the $1 \times 1$ determinant $|a|$, which is just the number $a$
+  * We can move down to this by breaking down the cofactor of order $n-1$ into cofactors of $n-2, n - 3 \ldots n - (n-1)$ which is our cofactor of size $1$.
+* Because of **property 10**, where $\det A = \det A^T$, we can also determine the factors down a column rather than across a row
+* Cofactors are particularly useful when we have matrices with many zeros, as this reduces the number of cofactors with non-zero determinants
