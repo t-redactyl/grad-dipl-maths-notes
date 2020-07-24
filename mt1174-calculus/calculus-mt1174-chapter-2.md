@@ -174,35 +174,115 @@ $ y \in B \rightarrow \boxed{f^{-1}} \rightarrow f^{-1}(y) \in A \rightarrow \bo
 
 #### Identities 
 
-
+* Identities are expressions that are true for all $x$, e.g., $(x + 1)^2 = x^2 + 2x + 1$
+* The power laws are identities that work for any values of $a$, $n$ and $m$ for which both sides of the expression are defined:
+  * $a^ma^n = a^{m + n}$
+  * $\frac{a^m}{a^n} = a^{m - n}$
+  * $(a^m)^n = a^{mn}$
 
 #### The laws of logarithms
 
-p. 24
+* As long as all terms are defined, the laws of logarithms state that:
+  * $\log_ax + \log_ay = \log_a(xy)$
+  * $\log_ax - \log_ay = \log_a (\frac{x}{y})$
+  * $y\log_ax = \log_a(x^y)$
+* These laws are derived from the power laws, and the fact that $a^{log_ax} = x$
+* If $a, b \neq 1$ are positive real numbers, then we have a change of base formula such that: $\log_ax = \frac{\log_bx}{\log_ba}$
 
 #### Trigonometric identities
 
-p. 25
+* Pythagorian identities:
 
-(Skip pp. 26-30)
+  * For acute angles, $\sin^2 \theta + cos^2 \theta = 1$:
+    * From Pythagora's theorem: 
+
+  $$
+  \begin{aligned}
+  \sin^2 \theta + \cos^2 \theta &= (\frac{\textrm{opposite}}{\textrm{hypotenuse}})^2 +  (\frac{\textrm{adjacent}}{\textrm{hypotenuse}})^2 \\
+  &= \frac{\textrm{opposite}^2 + \textrm{adjacent}^2}{\textrm{hypotenuse}^2} \\
+  &= \frac{\textrm{hypotenuse}^2}{\textrm{hypotenuse}^2} \\
+  &= 1
+  \end{aligned}
+  $$
+
+  * If we divide both sides of this equation by $\sin^2 \theta$, we get:
+    * $1 + \cot^2 \theta = \csc^2 \theta$
+    * This holds true when $\theta \neq n\pi$ for $n \in \mathbb{Z}$ 
+  * If we divide both sides of this equation by $\cos^2 \theta$, we get:
+    * $\tan^2 \theta + 1 = \sec^2 \theta$
+    * This holds true when $\theta \neq (2n + 1)\frac{\pi}{2}$ for $n \in \mathbb{Z}$
+
+* Compound-angle formulae:
+
+  * When we have two angles, $\theta$ and $\phi$:
+    * $\sin(\theta + \phi) = \sin \theta \cos \phi + \cos \theta \sin \phi$
+    * $\cos(\theta + \phi) = \cos \theta \cos \phi - \sin \theta \sin \phi$
+    * $\sin(\theta - \phi) = \sin \theta \cos \phi - \cos \theta \sin \phi$
+    * $\cos(\theta - \phi) = \cos \theta \cos \phi + \sin \theta \sin \phi$
+  * These work for all $\theta, \phi \in \mathbb{R}$
+  * These equations are summarised as:
+    * $\sin(\theta \pm \phi) = \sin \theta \cos \phi \pm \cos \theta \sin \phi$
+    * $\cos(\theta \pm \phi) = \cos \theta \cos \phi \mp \sin \theta \sin \phi$
+  * If $\theta = \phi$, then we have the double-angle formulae:
+    * $\sin(2\theta) = 2 \sin \theta \cos \theta$
+    * $\cos(2\theta) = \cos^2 \theta - \sin^2 \theta$
+  * These work for all $\theta \in \mathbb{R}$
 
 #### Conic sections
 
 #### Parabolae
 
-p. 30
+* A parabola is a curve of the form: $y = ax^2 + bx + c$, where $a$, $b$ and $c$ are constants and $a \neq 0$
+* If we complete the square, the equation is then of the form: $y = a(x - p)^2 + q$
+* This means we can infer the following:
+  * The $y$-intercept of the curve, found by setting $x$ to 0
+  * The $x$-intercepts of the curve, if they exist, found by setting $y$ to 0
+  * The turning point with coordinates $(p, q)$: this will be a minimum if $a > 0$ and a maximum if $a < 0$
 
 #### Circles
 
-p. 32
+* A circle of radius $r$, centred on point $(a, b)$ has the equation: $(x - a)^2 + (y - b)^2 = r^2$
+* The $x$- and $y$-intercepts can be found by finding where $y = 0$ and $x = 0$ respectively
+  * This is done by completing the square for an equation of the form $ax^2 + bx + cy^2 + dy = 0$ and then solving when $x = 0$ or $y = 0$
 
 #### Ellipses
 
-p. 33
+* An ellipse has the equation: $\frac{x^2}{a^2} + \frac{y^2}{b^2} = 1$
+* This is essentially a circle centred on the origin that has been "squashed"
+* We can as always find the $x$- and $y$-intercepts by solving for when $y = 0$ and $x = 0$
+  * In the case of quotients, any term with a 0 numerator is 0, therefore $x$ and $y$ disappear from the equation when we solve for when they are 0
 
 #### Hyperbolae
 
-p. 34
+* A hyperbola with no $y$-intercepts has the equation: $\frac{x^2}{a^2} - \frac{y^2}{b^2} = 1$
 
+  * These hyperbola never cross the $y$-axis, therefore they have no $y$-intercept
+  * They do have $x$ intercepts that can be found by setting $y$ to 0
+  * They also have slant or oblique asymptotes that can be found by rewriting the equation as:
 
+  $$
+  \begin{aligned}
+  \frac{y^2}{x^2} = b^2(\frac{1}{a^2} - \frac{1}{x^2})
+  \end{aligned}
+  $$
 
+  
+
+  * When rewritten in this form, as $x \rightarrow \infty$, we have $1 / x^2 \rightarrow 0$, which leaves us with $\frac{y^2}{x^2} = \frac{b^2}{a^2}$ and then $y = \pm \frac{b}{a}x$
+  * Rewriting the above equation:
+
+$$
+\begin{aligned}
+\frac{x^2}{a^2} - \frac{y^2}{b^2} &= 1 \\
+\frac{x^2b^2 - y^2a^2}{a^2b^2} &= 1 \\
+x^2b^2 - y^2a^2 &= a^2b^2 \\
+\frac{x^2b^2}{a^2} - y^2 &= b^2 \\
+x^2b^2(\frac{1}{a^2}) - b^2 &= y^2 \\
+b^2(\frac{1}{a^2}) - b^2(\frac{1}{x^2}) &= \frac{y^2}{x^2} \\
+b^2(\frac{1}{a^2} - \frac{1}{x^2}) &= \frac{y^2}{x^2}
+\end{aligned}
+$$
+
+* A hyperbola with no $x$-intercepts has the equation: $\frac{y^2}{b^2} - \frac{x^2}{a^2} = 1$
+* Finally, we have rectangular hyperbolae, which have equations of the form: $(x - a)(y - b) = c$
+  * These occur when the asymptotes are the horizontal line $y = b$ and the vertical line $x = a$
