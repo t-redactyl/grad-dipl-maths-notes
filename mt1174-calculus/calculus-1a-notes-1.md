@@ -170,7 +170,163 @@ $$ m = \frac{f(b) - f(a)}{b - a}$$
 * If $f$ is differentiable at $x = 3$, then $f^{\prime}(3)$ is a number representing the slope of the tangent line to that point
 * If $f^{\prime}$ is a function, then $f^{\prime}$ is also a function
 
-### Calculating derivatives: Finding formulas
+### Calculating derivatives
+
+#### Computation of the 2nd power derivative
+
+* Take the function $f(x) = x^2$, and calculate the derivate as $x \to 3$:
+  $$
+  \begin{aligned}
+  f(3) &= \lim\limits_{b \to 3} \frac{f(b) - f(3)}{b - 3} \\
+  &= \lim\limits_{b \to 3} \frac{b^2 - 9}{b - 3} \\
+  &= \lim\limits_{b \to 3} \frac{(b - 3)(b + 3)}{b - 3} \\
+  &= \lim\limits_{b \to 3} b + 3 \\
+  & = 6
+  \end{aligned}
+  $$
+
+* This tell us that the derivate of the function $x^2$ is 6 at $x = 3$, that is, the slope of the tangent line is 6 at that point
+
+  * It also tells us that the point $(3, 6)$ is on the graph of $f^{\prime}(x)$
+
+* In order to generalise this (so that we don't have to take the derivative of every point on the line separately!) we can recalulate the above, replacing 3 with a generic point $x$:
+  $$
+  \begin{aligned}
+  f(x) &= \lim\limits_{b \to x} \frac{f(b) - f(x)}{b - x} \\
+  &= \lim\limits_{b \to x} \frac{b^2 - x^2}{b - x} \\
+  &= \lim\limits_{b \to x} \frac{(b - x)(b + x)}{b - x} \\
+  &= \lim\limits_{b \to x} b + x \\
+  &= \lim\limits_{b \to x} x + x \\
+  &= \lim\limits_{b \to x} 2x
+  \end{aligned}
+  $$
+
+* So $f^{\prime}(x) = 2x$ for any $x$
+
+#### Derivates of linear functions
+
+*  With linear functions, we know that (because the line is straight), that the tangent line runs on top of the line itself
+  * Therefore, it has the same slope
+  * Therefore, the derivative of a linear function will simply be the slope of the linear function
+* E.g., $f(x) = \frac{1}{2}x - 1$
+  * $f^{\prime}(x) = \frac{1}{2}$
+* Generally:
+  * $g(x) = mx + b$
+  * $g^{\prime}(x) = m$
+* In the special case of a linear equation which just equals $b$:
+  * This actually equals $0x + b$, meaning that the slope is 0
+  * Therefore, the derivate is also 0
+
+#### Delta notation for the derivate
+
+* Our current notation for the derivate is:
+  * $f^{\prime}(x) = \lim\limits_{b \to x} \frac{f(b) - f(x)}{b - x}$
+* We can denote:
+  * $b - x = \Delta x$
+  * $b = x + \Delta x$
+  * $f(b) = f(x + \Delta x)$
+* Therefore, we can rewrite the above notation as:
+  * $f^{\prime} = \lim\limits_{\Delta x \to 0} \frac{f(x + \Delta x) - f(x)}{\Delta x}$
+  * This is because we want the gap between $b$ and $x$ to get smaller and smaller so we can get closer and closer to our limit
+* Example:
+
+$$
+\begin{aligned}
+f(x) &= \frac{1}{x} \\\\
+
+f^{\prime}(x) &= \lim\limits_{\Delta x \to 0} \frac{\frac{1}{x + \Delta x} - \frac{1}{x}}{\Delta x} \\
+&= \lim\limits_{\Delta x \to 0} \frac{\frac{x - (x + \Delta x)}{x(x + \Delta x)}}{\Delta x} \\
+&= \lim\limits_{\Delta x \to 0} \frac{\frac{- \Delta x}{x(x + \Delta x)}}{\Delta x} \\
+&= \lim\limits_{\Delta x \to 0} \frac{-1}{x(x + \Delta x)} \\\\
+\end{aligned}
+$$
+
+* As $\Delta x$ approaches 0, $x(x + \Delta x)$ simplies to $x^2$, therefore the derivative of this function is $f^{\prime} = -\frac{1}{x^2}$
+
+#### Derivatives of constant multiples
+
+* If we have a function $g(x) = 2f(x)$, all of the $y$ values are being stretched by a factor of 2
+* The tangent line to $g(x)$ is also stretched vertically
+* This means that the tangent to $g(x)$ is twice as steep as that of $f(x)$, therefore the derivative of $g(x)$ is twice that of $f(x)$:
+  * $g^{\prime}(x) = 2f^{\prime}(x)$
+* This holds for all constant multipliers of a function:
+  * E.g., $g(x) = -5x^2$, $g^{\prime}(x) = -5 \cdotp 2x = -10x$
+
+#### Derivative of a sum
+
+* If we have two functions, $f(x)$ and $g(x)$
+  * If we add these functions, the derivate of this new sum function is the sum of the derivative of the two individual functions
+  * $h(x) = f(x) + g(x)$, and $h^{\prime} = f^{\prime}(x) + g^{\prime}(x)$
+* The same holds for differences
+
+#### Power rule
+
+* If we have some function $f(x) = x^n$, then when we try to take the derivate we get:
+
+$$
+\begin{aligned}
+f^{\prime} &= \lim\limits_{b \to x} \frac{f(b) - f(x)}{b - x} \\
+&= \lim\limits_{b \to x} \frac{b^n - x^n}{b - x} \\
+&= \lim\limits_{b \to x} \frac{(b - x)(b^{n - 1} + b^{n - 2}x + b^{n - 3}x^2 + \ldots + bx^{n - 2} + x^{n - 1})}{b - x} \\
+&= \lim\limits_{b \to x} b^{n - 1} + b^{n - 2}x + b^{n - 3}x^2 + \ldots + bx^{n - 2} + x^{n - 1} \\
+&= x^{n - 1} + x^{n - 2}x + x^{n - 3}x^2 + \ldots + x \cdotp x^{n - 2} + x^{n - 1} \\
+&= x^{n - 1} + x^{n - 1} + x^{n - 1} + \ldots + x^{n - 1} + x^{n - 1} \\ 
+&= nx^{x - 1}
+\end{aligned}
+$$
+
+* The power rule also works for any function $f(x)$ where the base of the function is our input variable $x$ and the power is a fixed (constant) number:
+  * $f(x) = \frac{1}{x} = x^{-1}; f^{\prime}(x) = -1x^{-2} = \frac{-1}{x^2}$
+  * $f(x) = \sqrt{x} = x^{\frac{1}{2}}; f^{\prime}(x) = \frac{1}{2}x^{-\frac{1}{2}} = \frac{1}{2} \frac{1}{\sqrt{x}}$
+
+#### Tangent line to a polynomial
+
+* In order to get the _tangent line_ to a point on the curve, we need to do three steps:
+  1. Get the derivative of the function
+  2. Plug the $x$ value of the point of interest into the derivative to get the slope
+  3. Use the point-slope formula to calculate the tangent line formula
+* E.g., find the tangent line for $(2, 6)$ on the function $f(x) = x^3 - x$:
+  1. $f^{\prime}(x) = 3x^2 - 1$
+  2. $f^{\prime}(2) = 3(2)^2 - 1 = 11$
+  3. $y - y_0 = m(x - x_0) \to y - 6 = 11(x - 2) \to y = 11x - 16$
+
+### Leibniz notation
+
+* Prime notation $f^{\prime}(x)$:
+
+  * Developed by Newton
+  * Makes it easy to calculate derivate at specific point e.g., $f^{\prime}(3)$
+
+* Leibniz notation $\frac{dy}{dx}$:
+
+  * This is another way of writing $\frac{\Delta y}{\Delta x}$ as $x \to 0$
+
+  * The $d$ stands for the $\Delta$ as we approach the limit (the infinitesimally small versions of $\Delta y$ and $\Delta x$)
+
+  * Can also be written as:
+
+    * $\frac{df}{dx}$
+    * $\frac{d}{dx}y$
+    * $\frac{d}{dx}f$
+
+  * In order to use the Leibniz notation at any particular point of $x$,  then we need to add an evaluation bar like so: 
+    $$
+    \frac{dy}{dx}\Bigr|_{\substack{x=3}}
+    $$
+
+* Leibniz notation is particularly useful when you are interested in the rate of change of something with respect to different things:
+  * Let's say we are interested in the rate of change of the area of a circle. We might be interested in this rate of change wrt:
+    * Radius ($r$)
+    * Circumference ($c$)
+    * Time ($t$)
+  * With Leibniz notation, we can make this explicit by denoting:
+    * Radius: $\frac{dy}{dr}$
+    * Circumference: $\frac{dy}{dc}$
+    * Time: $\frac{dy}{dt}$
+
+### Second derivatives and higher
+
+
 
 
 
