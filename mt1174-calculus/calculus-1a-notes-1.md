@@ -326,7 +326,31 @@ $$
 
 ### Second derivatives and higher
 
+* Taking the function $f(x) = x^3 - 6x$
+* This function has a derivative which is itself a function: $f^{\prime}(x) = g(x) = 3x^2 - 6$
+  * This is the **first derivative** of $f(x)$
+* We can also take the derivative of $f^{\prime}(x)$: $g^{\prime} = 6x$
+  * This is the **second derivative** of $f(x)$
+* There are ways of representing the first, second and higher derivatives in both prime and Leibniz notations:
+  * First derivative = $f^{\prime}(x)$ = $\frac{df}{dx}$
+  * Second derivative = $f^{\prime\prime}(x)$ = $\frac{d^2f}{dx^2}$
+  * Third derivative = $f^{\prime\prime\prime}(x)$ = $f^{(3)}(x)$ = $\frac{d^3f}{dx^3}$
 
+* What is the second derivative?
+  * The first derivative is a function, with its own graph
+  * If we plot the second derivative, we can get the slope of the tangent to each point, i.e., the derivative of each point
+  * The second derivative therefore represents the derivative of the function of the first derivative
+
+#### The second derivative and concavity
+
+* Imagine that you are tracing along an area of the graph that represents a curved section going up and then down:
+  * If you had to steer around this section using a steering wheel, you'd always be going right
+  * This is called a **concave down** section of a graph, and these sections always have negative second derivatives (as the tangents always have negative slopes) and decreasing first derivatives
+* Conversely, imagine you are tracing along an area of the graph that represents a curved section doing down and then up:
+  * You are always "steering left"
+  * This is a **concave up** section of a graph, and these sections always have positive second derivatives
+    * However, their first halves have a decreasing first derivative and an increasing second derivative
+* The geometric meaning of the second derivative describes how our graph is bending or turning
 
 
 
