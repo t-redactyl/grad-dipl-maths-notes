@@ -226,7 +226,7 @@ $$ m = \frac{f(b) - f(a)}{b - a}$$
   * $b = x + \Delta x$
   * $f(b) = f(x + \Delta x)$
 * Therefore, we can rewrite the above notation as:
-  * $f^{\prime} = \lim\limits_{\Delta x \to 0} \frac{f(x + \Delta x) - f(x)}{\Delta x}$
+  * $f^{\prime}(x) = \lim\limits_{\Delta x \to 0} \frac{f(x + \Delta x) - f(x)}{\Delta x}$
   * This is because we want the gap between $b$ and $x$ to get smaller and smaller so we can get closer and closer to our limit
 * Example:
 
@@ -352,5 +352,80 @@ $$
     * However, their first halves have a decreasing first derivative and an increasing second derivative
 * The geometric meaning of the second derivative describes how our graph is bending or turning
 
+### Trigonometric functions: sine and cosine
 
+#### Derivative of sine
+
+* The derivative of sine is:
+
+$$
+\frac{d \sin(x)}{dx} = \lim\limits_{\Delta x \to 0} \frac{\sin(x + \Delta x) - \sin(x)}{\Delta x}
+$$
+
+* We can use the compound angle formulae to simplify the equation:
+  * $\sin(x + \Delta x) = \sin x \cos \Delta x + \cos x \sin \Delta x$
+
+$$
+\begin{aligned}
+\sin^{\prime}(x) &= \lim\limits_{\Delta x \to 0} \frac{\sin(x + \Delta x) - \sin(x)}{\Delta x} \\
+&= \lim\limits_{\Delta x \to 0} \frac{ \sin (x) \cos (\Delta x) + \cos (x) \sin (\Delta x) - \sin (x)}{\Delta x} \\
+&= \sin (x) (\lim\limits_{\Delta x \to 0} \frac{\cos (\Delta x) - 1}{\Delta x}) + \cos (x) (\lim\limits_{\Delta x \to 0} \frac{\sin (\Delta x)}{\Delta x})
+\end{aligned}
+$$
+
+* When $\frac{d \sin(x)}{dx} \Bigr|_{\substack{x=0}}$:
+
+$$
+\begin{aligned}
+\frac{d \sin(x)}{dx} \Bigr|_{\substack{x=0}} &= \sin (x) (\lim\limits_{\Delta x \to 0} \frac{\cos (\Delta x) - 1}{\Delta x}) + \cos (x) (\lim\limits_{\Delta x \to 0} \frac{\sin (\Delta x)}{\Delta x}) \\
+&= 0 (\lim\limits_{\Delta x \to 0} \frac{\cos (\Delta x) - 1}{\Delta x}) + 1 (\lim\limits_{\Delta x \to 0} \frac{\sin (\Delta x)}{\Delta x}) \\
+&= \lim\limits_{\Delta x \to 0} \frac{\sin (\Delta x)}{\Delta x}
+\end{aligned}
+$$
+
+* We can also simplify $\frac{d \cos(x)}{dx}$ in a similar way:
+
+$$
+\begin{aligned}
+\frac{d \cos(x)}{dx} &= \frac{cos(x + \Delta x) - cos(x)}{\Delta x} \\
+&= \frac{\cos(x)\cos(\Delta x) - \sin(x)\sin(\Delta x) - \cos(x)}{\Delta x} \\
+&= \cos(x)(\lim\limits_{\Delta x \to 0} \frac{\cos(\Delta x) - 1)}{\Delta x} - \sin(x)(\lim\limits_{\Delta x \to 0} \frac{\sin(\Delta x)}{\Delta x})
+\end{aligned}
+$$
+
+* When we then evaluate  $\frac{d \cos(x)}{dx} \Bigr|_{\substack{x=0}}$:
+
+$$
+\begin{aligned}
+\frac{d \sin(x)}{dx} \Bigr|_{\substack{x=0}} &= \cos(x)(\lim\limits_{\Delta x \to 0} \frac{\cos(\Delta x) - 1)}{\Delta x}) - \sin(x)(\lim\limits_{\Delta x \to 0} \frac{\sin(\Delta x)}{\Delta x}) \\
+&= 1(\lim\limits_{\Delta x \to 0} \frac{\cos(\Delta x) - 1)}{\Delta x}) - 0(\lim\limits_{\Delta x \to 0} \frac{\sin(\Delta x)}{\Delta x}) \\
+&= \lim\limits_{\Delta x \to 0} \frac{\cos(\Delta x) - 1)}{\Delta x}
+\end{aligned}
+$$
+
+#### Derivative of sine at 0
+
+* We can understand the derivative of sine at 0 by rewriting $\frac{d \sin(x)}{dx} \Bigr|_{\substack{x=0}} = \lim\limits_{\Delta x \to 0} \frac{\sin (\Delta x)}{\Delta x}$ as $\frac{d \sin(\theta)}{dx} \Bigr|_{\substack{\theta=0}} = \lim\limits_{\theta \to 0} \frac{\sin (\theta)}{\theta}$
+* This can then be thought of to represent the ratio between the opposite line of a triangle in a unit circle ($\sin (\theta)$), and the arclength of the circumference of the circle spanned by this triangle ($\theta$)
+* As $\theta$ approaches 0, the line $\sin (\theta)$ gets closer and closer to the arclength $\theta$, meaning as $\theta \to 0$, the ratio of $\sin (\theta)$ to $\theta$ will approach 1
+* This argument only works if we measure $\theta$ in radians, as otherwise the slope of the tangent line isn't 1 at $\theta = 0$
+
+#### Derivative of cosine at 0
+
+* Again, we rewrite $\frac{d \cos(x)}{dx} \Bigr|_{\substack{x=0}} = \lim\limits_{\Delta x \to 0} \frac{\cos (\Delta x) - 1}{\Delta x}$ as $\frac{d \cos(\theta)}{dx} \Bigr|_{\substack{\theta=0}} = \lim\limits_{\theta \to 0} \frac{\cos (\theta) - 1}{\theta}$
+* As the length of the radius of our unit circle is 1, and the adjacent line (which lies on part of the radius) has a length $\cos (\theta)$, then the length of the gap between the adjacent line and the circumference of the circle is $1 - \cos (\theta)$
+  * This is the negative of the numerator of our equation
+* As $\theta \to 0$, $1 - \cos (\theta)$ approaches 0 at a much faster rate than $\theta$
+* Therefore, we will end up with 0 on top faster than we will have 0 on the bottom, which means the overall limit equals 0
+* What does this mean in total? We have $\frac{d \sin(x)}{dx} = \sin(x) \cdotp \cos^{\prime}(x) +  \cos(x) \cdotp \sin^{\prime}(x)$
+  * At $x = 0$, $\frac{d \sin(x)}{dx} \Bigr|_{\substack{x=0}} = \sin(x) \cdotp \cos^{\prime}(0) +  \cos(x) \cdotp \sin^{\prime}(0) = \sin(x) \cdotp 0 +  \cos(x) \cdotp 1 = \cos(x)$
+
+#### Derivatives of sine and cosine
+
+* The first derivatives of sine and cosine are:
+  * $\frac{d}{dx} \sin(x) = \cos(x)$
+  * $\frac{d}{dx} \cos(x) = -\sin(x)$
+* The second derivatives of sine and cosine are:
+  * $\frac{d^2}{dx^2} \sin(x) = -\sin(x)$
+  * $\frac{d^2}{dx^2} \cos(x) = -\cos(x)$
 
