@@ -428,4 +428,3 @@ $$
 * The second derivatives of sine and cosine are:
   * $\frac{d^2}{dx^2} \sin(x) = -\sin(x)$
   * $\frac{d^2}{dx^2} \cos(x) = -\cos(x)$
-
